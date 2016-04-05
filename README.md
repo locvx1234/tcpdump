@@ -2,10 +2,10 @@
 Tìm hiểu về cách sử dụng tcpdump
 
 ## 1. tcpdump là gì?
-*tcpdump* là phần mềm bắt gói tin trên mạng nhằm mục đích phân tích chúng.
+*tcpdump* là phần mềm dùng để bắt gói tin trên mạng, nhằm mục đích phân tích chúng.
 	
 ## 2. Cài đặt tcpdump
-Sử dụng lệnh :
+Để cài tcpdump trên Linux, bạn sử dụng lệnh :
 
 	$ apt-get install tcpdump
 
@@ -30,6 +30,8 @@ listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
 
 ```
 
+Lệnh sẽ liệt kê các gói tin lưu thông qua card mạng eth0.
+
 ### 3.2. Giới hạn số lượng gói tin 
 
 	$ tcpdump -c 'number'
@@ -46,6 +48,8 @@ listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
 11 packets received by filter
 0 packets dropped by kernel
 ```
+
+Số gói tin được giới hạn là 3. Sau khi bắt đủ 3 gói tin, chương trình kết thúc.
 
 ### 3.3. Hiển thị dạng ASCII của gói tin bắt được 
 
@@ -68,6 +72,10 @@ MX:3
 E..v.g@.@........q...'.5.b...............c.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.f.f.ip6.arpa.....
 ```
 
+Tùy chọn -A sẽ hiển thị dạng ASCII của dữ liệu bắt được. Nó tương đương phần này trong Wireshark : 
+
+<img src="http://i.imgur.com/U8NTSvP.png">
+
 ### 3.4. Hiển thị dạng Hex và ASCII của gói tin bắt được 
 	
 	$ tcpdump -XX
@@ -86,6 +94,10 @@ listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
         0x0050:  70f1 a1ca a133                           p....3
 ```
 
+Tùy chọn -XX sẽ hiển thị dạng Hex và ASCII của dữ liệu bắt được. Nó tương đương phần này trong Wireshark : 
+
+<img src="http://i.imgur.com/wPsYWuC.png">
+
 ### 3.5. Lưu các gói tin bắt được vào file 
 
 	$ tcpdump -w filename.pcap
@@ -99,6 +111,8 @@ tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 65535 byte
 0 packets dropped by kernel
 ```
 
+Một file `cap_tcpdump.pcap` chứa các gói tin bắt được sẽ được lưu lại. Phần mở rộng là `.pcap` để phù hợp với các phần mềm phân tích.
+ 
 ### 3.6. Đọc file chứa các gói tin 
 
 	$ tcpdump -r filename.pcap 
@@ -116,7 +130,7 @@ reading from file cap_tcpdump.pcap, link-type EN10MB (Ethernet)
 22:13:18.758076 IP 192.168.0.6.netbios-ns > 192.168.0.255.netbios-ns: NBT UDP PACKET(137): QUERY; REQUEST; BROADCAST
 ```
 
-
+In ra file `cap_tcpdump.pcap` vừa lưu.
 ### 3.7. Đọc file chứa các gói tin lớn hơn 1 kích cỡ cho sẵn
 
 	$ tcpdump -r filename.pcap greater 'size'
@@ -144,7 +158,7 @@ reading from file cap_tcpdump.pcap, link-type EN10MB (Ethernet)
 22:13:18.758076 IP 192.168.0.6.netbios-ns > 192.168.0.255.netbios-ns: NBT UDP PACKET(137): QUERY; REQUEST; BROADCAST
 ```
 
-### 3.9. Lọc theo protocol (fddi, tr, wlan, ip, ip6, arp, rarp, decnet, tcp và udp)
+### 3.9. Lọc theo protocol 
 
 	$ tcpdump 'protocol'
 	
@@ -158,6 +172,8 @@ listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
 22:36:42.222447 IP dns4.vietel.com.vn.domain > 192.168.0.46.48100: 51289 0/0/0 (46)
 22:36:42.222911 IP 192.168.0.46.38280 > dns4.vietel.com.vn.domain: 41661+ PTR? 6.0.168.192.in-addr.arpa. (42)
 ```
+
+Lọc các gói tin sử dụng một trong các phương thức : fddi, tr, wlan, ip, ip6, arp, rarp, decnet, tcp và udp.
 
 ### 3.10. Lọc theo IP nguồn và IP đích 
 
@@ -178,7 +194,8 @@ listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
 - -ttt : thời gian tính từ lúc bắt đầu bắt gói tin 
 - -tttt : thời gian thực lúc bắt gói tin
 	
-	
+Các tùy chọn được thêm vào các lệnh để ẩn hoặc hiện thị thời gian như mong muốn.
+
 ## 4. Tham khảo 
 
 http://securitydaily.net/phan-tich-goi-tin-15-lenh-tcpdump-duoc-su-dung-trong-thuc-te/
